@@ -7,9 +7,9 @@ Projekt Salesforce DX do nauki i eksperymentów na orgu deweloperskim **lotka co
 | Element | Wartość |
 | --- | --- |
 | Org (alias) | `devorg` |
-| Username | `matmat@lotka.com` |
+| Username | `matmat@***` |
 | Edition | Developer Edition |
-| Instance | `https://lotkacorp-dev-ed.develop.my.salesforce.com` |
+| Instance | `<mydomain>.my.salesforce.com` |
 | API | v68.0 |
 | Struktura | `force-app/main/default/*` |
 
@@ -35,15 +35,30 @@ sf apex run --target-org devorg --file scripts/apex/hello.apex
 sf data query --target-org devorg --file scripts/soql/account.soql
 ```
 
-## Commitowanie
+## Workflow git: branch + Pull Request
 
-Każda zmiana funkcjonalna = osobny commit, potem push:
+`main` służy **tylko do scalania**. Bezpośredni push na `main` jest blokowany
+przez branch protection po stronie GitHuba (repo jest publiczne, więc ochrona
+jest dostępna także na planie Free).
 
 ```bash
+# 1. świeży branch od main
+git switch main && git pull
+git switch -c feat/krotki-opis
+
+# 2. praca + commit
 git add -A
 git commit -m "feat: <co dodane>"
-git push
+
+# 3. push brancha i Pull Request
+git push -u origin HEAD
+gh pr create --fill
+
+# 4. merge przez PR (squash) — dopiero wtedy zmiana trafia na main
+gh pr merge --squash --delete-branch
 ```
+
+Konwencja nazw branchy: `feat/…`, `fix/…`, `chore/…`, `docs/…`, `trailhead/…`.
 
 ## Przydatne katalogi
 
