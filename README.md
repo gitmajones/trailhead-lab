@@ -7,9 +7,9 @@ Projekt Salesforce DX do nauki i eksperymentów na orgu deweloperskim **lotka co
 | Element | Wartość |
 | --- | --- |
 | Org (alias) | `devorg` |
-| Username | `matmat@lotka.com` |
+| Username | `matmat@***` |
 | Edition | Developer Edition |
-| Instance | `https://lotkacorp-dev-ed.develop.my.salesforce.com` |
+| Instance | `<mydomain>.my.salesforce.com` |
 | API | v68.0 |
 | Struktura | `force-app/main/default/*` |
 
@@ -38,8 +38,8 @@ sf data query --target-org devorg --file scripts/soql/account.soql
 ## Workflow git: branch + Pull Request
 
 `main` służy **tylko do scalania**. Bezpośredni push na `main` jest blokowany
-hookiem `.githooks/pre-push` (GitHub branch protection nie jest dostępny
-na planie Free dla repo prywatnych).
+przez branch protection po stronie GitHuba (repo jest publiczne, więc ochrona
+jest dostępna także na planie Free).
 
 ```bash
 # 1. świeży branch od main
@@ -58,14 +58,7 @@ gh pr create --fill
 gh pr merge --squash --delete-branch
 ```
 
-Konwencja nazw branchy: `feat/…`, `fix/…`, `chore/…`, `docs/…`.
-
-Hook działa, bo repo ma ustawione `core.hooksPath` na `.githooks` (konfiguracja
-lokalna, nie trafia do repo — w nowym klonie trzeba ją ustawić raz):
-
-```bash
-git config --local core.hooksPath .githooks
-```
+Konwencja nazw branchy: `feat/…`, `fix/…`, `chore/…`, `docs/…`, `trailhead/…`.
 
 ## Przydatne katalogi
 

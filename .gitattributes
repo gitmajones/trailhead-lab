@@ -1,6 +1,2 @@
 # Normalizacja końców linii
 * text=auto
-
-# Hooki i skrypty muszą mieć LF — inaczej sh na Windows dostaje \r i się wysypuje
-.githooks/* text eol=lf
-*.sh        text eol=lf
