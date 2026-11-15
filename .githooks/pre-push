@@ -1,0 +1,26 @@
+#!/bin/sh
+# Blokuje bezposredni push na main.
+# Zasada repo: main jest tylko do scalania, zmiany ida przez branch + Pull Request.
+
+blocked="main"
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  case "$remote_ref" in
+    refs/heads/main)
+      # pusta sha = usuniecie brancha, to przepuszczamy
+      if [ "$local_sha" != "0000000000000000000000000000000000000000" ]; then
+        echo ""
+        echo "  [X] Push na '$blocked' jest zablokowany (regula repo)."
+        echo ""
+        echo "  Zrob branch i Pull Request:"
+        echo "    git switch -c feat/moja-zmiana"
+        echo "    git push -u origin HEAD"
+        echo "    gh pr create --fill"
+        echo ""
+        exit 1
+      fi
+      ;;
+  esac
+done
+
+exit 0
