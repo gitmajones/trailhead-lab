@@ -1,136 +1,134 @@
 # trailhead-lab
 
-Projekt **Salesforce DX do nauki, automatyzacji i dokumentowania pracy w
-Trailhead**. Repozytorium jest połączone z Developer Edition orgiem `devorg` i
-służy jako bezpieczne laboratorium do ćwiczenia Salesforce Admin, Flow,
-Prompt Builder, Apex oraz pracy z metadata przez Salesforce CLI.
+This is a **Salesforce DX learning, automation, and documentation project**.
+It is connected to a Developer Edition org named `devorg` and serves as a safe
+laboratory for practicing Salesforce Admin, Flow, Prompt Builder, Apex, and
+Salesforce CLI metadata workflows.
 
-To nie jest aplikacja produkcyjna. Każda zmiana ma przede wszystkim pokazywać
-proces: wymaganie biznesowe → konfiguracja w Salesforce → test w orgu →
-metadata w repozytorium → commit na osobnej gałęzi.
+This is not a production application. Each change is intended to demonstrate
+the complete workflow: business requirement → Salesforce configuration → org
+validation → metadata in source control → commit on a dedicated branch.
 
-## Zrealizowany zakres
+## Completed work
 
-W repozytorium znajduje się konfiguracja wykonana w ramach **Prompt Builder
+The repository contains configuration completed as part of the **Prompt Builder
 Templates Superbadge**:
 
-### 1. Tłumaczenie ankiet Fitness
+### 1. Fitness survey translation
 
-- Prompt Template `Translate Survey Input` (`Translate_Survey_Input`), typu
-  **Flex**.
-- Wejścia: `Account`, `Contact` i `Fitness`.
-- Tłumaczenie pola `Survey Input` na język angielski z limitem odpowiedzi
-  odpowiednim dla pola docelowego.
-- Record-Triggered Flow `Translate Fitness Survey Input` wywołuje prompt po
-  utworzeniu rekordu `Fitness` i zapisuje wynik w `Translated Survey Input`.
+- `Translate Survey Input` (`Translate_Survey_Input`), a **Flex** prompt template.
+- Inputs: `Account`, `Contact`, and `Fitness`.
+- Translates the `Survey Input` field into English with a response length
+  appropriate for the target field.
+- The `Translate Fitness Survey Input` record-triggered flow invokes the prompt
+  when a `Fitness` record is created and stores the result in `Translated Survey Input`.
 
-### 2. Podsumowanie celów klienta
+### 2. Client goals summary
 
-- Pole Contact `Interest Summary` (`Interest_Summary__c`) typu **Rich Text Area**.
-- Prompt Template `Summarize Client Goals` (`Summarize_Client_Goals`), typu
-  **Field Generation**.
-- Prompt korzysta z całej related listy rekordów `Fitness` i imienia kontaktu.
-- Template został podłączony do strony Contact Lightning Record Page w aplikacji
-  Tranquil Trails.
+- `Interest Summary` (`Interest_Summary__c`) on Contact, using the **Rich Text Area** type.
+- `Summarize Client Goals` (`Summarize_Client_Goals`), a **Field Generation** prompt template.
+- Uses the complete related list of `Fitness` records and the contact's first name.
+- The template is connected to the Contact Lightning Record Page in the
+  Tranquil Trails app.
 
-### 3. Spersonalizowany email z rekomendacją programu
+### 3. Personalized program recommendation email
 
-- Prompt Template `Program Recommendation Email`
-  (`Program_Recommendation_Email`), typu **Sales Email**.
-- Odbiorcą jest `Contact`, bez Related Object.
-- Prompt korzysta z related listy `Recipient.Fitness__r` oraz invocable Apex
+- `Program Recommendation Email` (`Program_Recommendation_Email`), a
+  **Sales Email** prompt template.
+- Uses `Contact` as the recipient and no Related Object.
+- Uses the `Recipient.Fitness__r` related list and the invocable Apex class
   `Prompt_Program_Recommendation_Invocable`.
-- Template generuje email z rekomendacją maksymalnie dwóch programów.
+- Generates an email recommending up to two relevant programs.
 
-### Uprawnienia i metadata
+### Permissions and metadata
 
-- Profil administratora ma Field-Level Security dla
-  `Contact.Interest_Summary__c` z dostępem do odczytu i edycji.
-- Metadata Prompt Buildera znajduje się w
+- The administrator profile has Field-Level Security for
+  `Contact.Interest_Summary__c` with read and edit access.
+- Prompt Builder metadata is stored in
   `force-app/main/default/genAiPromptTemplates/`.
-- Definicja pola znajduje się w
+- The custom field definition is stored in
   `force-app/main/default/objects/Contact/fields/`.
-- Definicja profilu znajduje się w `force-app/main/default/profiles/`.
+- Profile metadata is stored in `force-app/main/default/profiles/`.
 
-## Środowisko
+## Environment
 
-| Element | Wartość |
+| Item | Value |
 | --- | --- |
 | Org alias | `devorg` |
 | Edition | Developer Edition |
 | API | v68.0 |
 | Salesforce CLI | Salesforce CLI v2 (`sf`) |
 | Node.js | Node 26 |
-| Kod źródłowy | `force-app/main/default/*` |
+| Source directory | `force-app/main/default/*` |
 
-## Codzienny workflow Salesforce CLI
+## Salesforce CLI workflow
 
 ```bash
-# Sprawdź połączenie z orgiem
+# Check the connected org
 sf org display --target-org devorg
 
-# Pobierz metadata po zmianach wykonanych w Setup
+# Retrieve metadata after changes made in Setup
 sf project retrieve start --target-org devorg
 
-# Wdróż wybrany katalog metadata do orga
+# Deploy a selected metadata directory to the org
 sf project deploy start --target-org devorg --source-dir <path>
 
-# Uruchom testy Apex
+# Run Apex tests
 sf apex run test --target-org devorg --code-coverage --result-format human --wait 10
 
-# Wykonaj zapytanie SOQL
+# Run a SOQL query
 sf data query --target-org devorg --query "SELECT Id, Name FROM Account LIMIT 5"
 ```
 
-Zmiany wykonane w interfejsie Salesforce należy pobrać do repozytorium przed
-commitem. Nie należy przechowywać w repozytorium haseł, tokenów, pełnych danych
-logowania ani danych wrażliwych.
+Changes made in the Salesforce UI should be retrieved into the repository before
+committing. Passwords, tokens, complete login details, and sensitive data must
+never be stored in the repository.
 
-## Workflow Git: branch i Pull Request
+## Git workflow: branches and pull requests
 
-`main` służy **tylko do scalania**. Praca odbywa się na osobnej gałęzi, a
-użytkownik wykonuje merge Pull Requesta.
+`main` is used **only for merges**. Work is done on a dedicated branch, and the
+repository owner performs the Pull Request merge.
 
 ```bash
-# Utwórz branch od aktualnego main
+# Create a branch from the current main
 git switch main
 git pull
-git switch -c trailhead/nazwa-zmiany
+git switch -c trailhead/change-name
 
-# Sprawdź i zapisz zmianę
+# Review and commit the change
 git status
 git diff
-git add <pliki>
-git commit -m "trailhead: opis zmiany"
+git add <files>
+git commit -m "trailhead: describe the change"
 
-# Opcjonalnie: opublikuj branch i otwórz PR
+# Optional: publish the branch and open a PR
 git push -u origin HEAD
 gh pr create --fill
 ```
 
-Konwencja nazw branchy: `feat/…`, `fix/…`, `chore/…`, `docs/…`,
-`trailhead/…`. Commit powinien opisywać jedną logiczną zmianę i mieć maksymalnie
-72 znaki.
+Branch naming convention: `feat/...`, `fix/...`, `chore/...`, `docs/...`, and
+`trailhead/...`. Each commit should describe one logical change and be no longer
+than 72 characters.
 
-## Struktura projektu
+## Project structure
 
-- `force-app/main/default/classes/` – klasy i testy Apex
-- `force-app/main/default/flows/` – automatyzacje Flow
+- `force-app/main/default/classes/` – Apex classes and tests
+- `force-app/main/default/flows/` – Flow automation
 - `force-app/main/default/genAiPromptTemplates/` – Prompt Builder metadata
-- `force-app/main/default/objects/` – obiekty i pola
-- `force-app/main/default/profiles/` – uprawnienia profili
-- `force-app/main/default/lwc/` – komponenty Lightning Web Components
-- `scripts/apex/` – skrypty Anonymous Apex
-- `scripts/soql/` – zapytania SOQL
-- `.opencode/` – lokalne instrukcje i procedury agenta, jeśli są używane
+- `force-app/main/default/objects/` – objects and fields
+- `force-app/main/default/profiles/` – profile permissions
+- `force-app/main/default/lwc/` – Lightning Web Components
+- `scripts/apex/` – Anonymous Apex scripts
+- `scripts/soql/` – SOQL queries
+- `.opencode/` – local agent instructions and procedures, when used
 
-## Cel edukacyjny
+## Learning goals
 
-Repozytorium pomaga rozwijać praktyczne umiejętności:
+This repository supports practical learning in:
 
-- modelowania danych i konfiguracji Salesforce,
-- projektowania promptów opartych na danych CRM,
-- budowania automatyzacji Record-Triggered Flow,
-- integrowania Prompt Buildera z Flow, Lightning Record Pages i emailami,
-- nadawania poprawnych uprawnień użytkownikom,
-- pracy z Salesforce metadata i wersjonowaniem Git.
+- Salesforce data modeling and configuration,
+- CRM-grounded prompt design,
+- Record-Triggered Flow automation,
+- Prompt Builder integration with Flow, Lightning Record Pages, and email,
+- user and field-level permissions,
+- Salesforce metadata management and Git version control.
