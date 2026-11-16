@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Field access required for the Prompt Builder Templates Superbadge.</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.Interest_Summary__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Prompt Builder Superbadge Access</label>
+</PermissionSet>
