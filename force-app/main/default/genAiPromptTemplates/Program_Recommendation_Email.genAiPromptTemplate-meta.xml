@@ -17,7 +17,7 @@ The email should include the following:
 - Refer to the sender in the singular voice, using references such as &quot;I&quot; and not &quot;we&quot; in the email.
 - Convey that you are checking in to follow up and encourage the client&apos;s progress.
 - The message should evoke enthusiasm with intensifiers, but limit the use of exclamation points.
-- Maintain a casual tone by using contractions and referring to the recipient in the first person, but do not use discourse markers.
+- Maintain a casual tone by using contractions and referring to the recipient in the second person, but do not use discourse markers.
 Below are two sets of reference information.
 The first is a list of the recipient&apos;s interests tagged as :Goals.
 The second is a list of the current active programs in a JSON object tagged as :Programs.
@@ -67,7 +67,7 @@ Follow these instructions strictly to generate the message to be sent to the cli
         </templateDataProviders>
         <templateDataProviders>
             <definition>apex://Prompt_Program_Recommendation_Invocable</definition>
-            <description>returns JSON object of availible programs</description>
+            <description>returns JSON object of available programs</description>
             <label>Program_Recommendation</label>
             <parameters>
                 <definition>SOBJECT://Contact</definition>
@@ -97,7 +97,7 @@ The email should include the following:
 - Refer to the sender in the singular voice, using references such as &quot;I&quot; and not &quot;we&quot; in the email.
 - Convey that you are checking in to follow up and encourage the client&apos;s progress.
 - The message should evoke enthusiasm with intensifiers, but limit the use of exclamation points.
-- Maintain a casual tone by using contractions and referring to the recipient in the first person, but do not use discourse markers.
+- Maintain a casual tone by using contractions and referring to the recipient in the second person, but do not use discourse markers.
 Below are two sets of reference information.
 The first is a list of the recipient&apos;s interests tagged as :Goals.
 The second is a list of the current active programs in a JSON object tagged as :Programs.
@@ -147,7 +147,7 @@ Follow these instructions strictly to generate the message to be sent to the cli
         </templateDataProviders>
         <templateDataProviders>
             <definition>apex://Prompt_Program_Recommendation_Invocable</definition>
-            <description>returns JSON object of availible programs</description>
+            <description>returns JSON object of available programs</description>
             <label>Program_Recommendation</label>
             <parameters>
                 <definition>SOBJECT://Contact</definition>
