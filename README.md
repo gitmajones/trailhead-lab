@@ -42,13 +42,14 @@ Templates Superbadge**:
 
 ### Permissions and metadata
 
-- The administrator profile has Field-Level Security for
-  `Contact.Interest_Summary__c` with read and edit access.
+- The `Prompt Builder Superbadge Access` permission set grants read and edit
+  access to `Contact.Interest_Summary__c` without exporting unrelated profile
+  settings.
 - Prompt Builder metadata is stored in
   `force-app/main/default/genAiPromptTemplates/`.
 - The custom field definition is stored in
   `force-app/main/default/objects/Contact/fields/`.
-- Profile metadata is stored in `force-app/main/default/profiles/`.
+- Permission set metadata is stored in `force-app/main/default/permissionsets/`.
 
 ## Project structure
 
@@ -56,7 +57,7 @@ Templates Superbadge**:
 - `force-app/main/default/flows/` – Flow automation
 - `force-app/main/default/genAiPromptTemplates/` – Prompt Builder metadata
 - `force-app/main/default/objects/` – objects and fields
-- `force-app/main/default/profiles/` – profile permissions
+- `force-app/main/default/permissionsets/` – focused permission assignments
 - `force-app/main/default/lwc/` – Lightning Web Components
 - `scripts/apex/` – Anonymous Apex scripts
 - `scripts/soql/` – SOQL queries
