@@ -5,9 +5,9 @@ It is connected to a Developer Edition org named `devorg` and serves as a safe
 laboratory for practicing Salesforce Admin, Flow, Prompt Builder, Apex, and
 Salesforce CLI metadata workflows.
 
-This is not a production application. Each change is intended to demonstrate
-the complete workflow: business requirement → Salesforce configuration → org
-validation → metadata in source control → commit on a dedicated branch.
+This is not a production application. Its purpose is to turn Trailhead
+requirements into working Salesforce capabilities and to preserve the resulting
+configuration as reusable metadata.
 
 ## Completed work
 
@@ -49,66 +49,6 @@ Templates Superbadge**:
 - The custom field definition is stored in
   `force-app/main/default/objects/Contact/fields/`.
 - Profile metadata is stored in `force-app/main/default/profiles/`.
-
-## Environment
-
-| Item | Value |
-| --- | --- |
-| Org alias | `devorg` |
-| Edition | Developer Edition |
-| API | v68.0 |
-| Salesforce CLI | Salesforce CLI v2 (`sf`) |
-| Node.js | Node 26 |
-| Source directory | `force-app/main/default/*` |
-
-## Salesforce CLI workflow
-
-```bash
-# Check the connected org
-sf org display --target-org devorg
-
-# Retrieve metadata after changes made in Setup
-sf project retrieve start --target-org devorg
-
-# Deploy a selected metadata directory to the org
-sf project deploy start --target-org devorg --source-dir <path>
-
-# Run Apex tests
-sf apex run test --target-org devorg --code-coverage --result-format human --wait 10
-
-# Run a SOQL query
-sf data query --target-org devorg --query "SELECT Id, Name FROM Account LIMIT 5"
-```
-
-Changes made in the Salesforce UI should be retrieved into the repository before
-committing. Passwords, tokens, complete login details, and sensitive data must
-never be stored in the repository.
-
-## Git workflow: branches and pull requests
-
-`main` is used **only for merges**. Work is done on a dedicated branch, and the
-repository owner performs the Pull Request merge.
-
-```bash
-# Create a branch from the current main
-git switch main
-git pull
-git switch -c trailhead/change-name
-
-# Review and commit the change
-git status
-git diff
-git add <files>
-git commit -m "trailhead: describe the change"
-
-# Optional: publish the branch and open a PR
-git push -u origin HEAD
-gh pr create --fill
-```
-
-Branch naming convention: `feat/...`, `fix/...`, `chore/...`, `docs/...`, and
-`trailhead/...`. Each commit should describe one logical change and be no longer
-than 72 characters.
 
 ## Project structure
 
